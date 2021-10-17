@@ -1,0 +1,23 @@
+{
+  "name": "firstnodeserver",
+  "version": "1.0.0",
+  "description": "My first Node JS Server created while studying the node.js Acemind Udemy couse",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UrgellMossley/firstNodeServer.git"
+  },
+  "author": "George Edem",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UrgellMossley/firstNodeServer/issues"
+  },
+  "homepage": "https://github.com/UrgellMossley/firstNodeServer#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
