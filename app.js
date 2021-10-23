@@ -1,41 +1,34 @@
+//use express obj and listen method to initialise and listen for the Port. 
+
 //import express module
 const express = require(`express`);
-
+//import the path module we exported
+const path = require(`path`)
+//define the express object and store in the app variable
 const app = express();
+
+//import Router modules from routes folder which contain routing logic
+const adminRoutes = require(`./routes/admin`)
+const shopRoutes = require(`./routes/shop`)
 
 //parser middleware usually defined before routing. 
 //used to be body-parser but has now been depreciated,
 app.use(express.urlencoded({extended:true}));
 app.use(express.json()) // To parse the incoming requests with JSON payloads
-
-app.use(`/`,(res,req, next)=>{
-    console.log(`this runs by default`);
-    next();
+//serves static files using the static core module (comes with express.js), path module and path imported module for each site
+app.use(express.static(path.join(__dirname,`public`)))
+//using path filtering we can initiate a common start point (/admin), which does not need to be repeated for our Admin files
+//css files for each page served by one line of code!
+app.use(`/admin`,adminRoutes)
+app.use(shopRoutes)
+app.use((req,res,next)=>{
+    res.status(404).sendFile(path.join(__dirname,`views`,`404.html`))
 })
 
-app.use(`/add-product`,(req,res,next)=>{
-    console.log(`first`);
-    //as there is a response sent we dont need to use next()
-    //nb no need to set headers nor to use res.write!
-    res.send(`<form action="/product" method="POST"><input type="text" name="title"></input><button type="submit">click me</button></form>`)
-    //if you send a response you dont want to send next();
-})
-//by using routing middleware we can determine what happens according to what type of request is made
-app.post(`/product`,(req,res,next)=>{
-    console.log(req.body)
-    res.redirect(`/`)
-})
 
-app.use(`/`,(req,res,next)=>{
-    console.log(`second`);
-    //as there is a response sent we dont need to use next()
-    //nb no need to set headers nor to use res.write!
-    res.send(`<h1>Finished!</h1>`)
-})
+
 //Create server constant and store the http object in it
-//use express obj and listen method to initialise and listen for the Port. 
 //No need to define server or use the http module like: const server = http.createServer(app);
 //added an Listener Event on port 3000. When a request is made server console.log the request
 app.listen(3000); 
  
-
