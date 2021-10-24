@@ -13,7 +13,12 @@ router.get(`/add-product`,(req,res,next)=>{
     //We also pass in an object with properties which are passed into the pug file for use later on
     //using path we can dynamically alter the template according to the path defined. So we can decide for example to make an li have a class 
     //..depending if the request is to the defined path in this case: /admin/add-product
-    res.render(`add-product`,{prod: products, pageTitle: `add-products`, path: `/admin/add-product`})
+    res.render(`add-product`,{prod: products,
+                              pageTitle: `add-products`,
+                              path: `/admin/add-product`,
+                              activeProduct: true,
+                              formsCss: true
+                            })
 })
 
 //by using routing middleware we can determine what happens according to what type of request is made ie. get v post
