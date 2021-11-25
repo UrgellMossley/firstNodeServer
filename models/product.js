@@ -10,14 +10,23 @@ const getProductsFromFile = (callBack) =>{
         if (err){
             callBack([]);
         }
+       else {
         callBack(JSON.parse(fileContent));
+       } 
     })
 }
 
 module.exports = class Product {
-    constructor(title,){
-      this.title = title;  
+    constructor(title,imageUrl,price,description){
+      this.title = title; 
+      this.imageUrl = imageUrl; 
+      this.price = price; 
+      this.description = description;  
+      console.log(!this.imageUrl)
+
+      
     }
+
     save(){
         //save to a file system
         getProductsFromFile(products=>{
